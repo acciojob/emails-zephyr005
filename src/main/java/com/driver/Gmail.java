@@ -24,13 +24,14 @@ public class Gmail extends Email {
     }
 
     public void receiveMail(Date date, String sender, String message){
-        if(inbox1.size()==inboxCapacity){
-            trash.add(inbox1.get(inbox1.size()-1));
-            inbox1.remove(inbox1.size()-1);
-            inbox2.remove(inbox2.size()-1);
-        }
         inbox1.add(date);
         inbox2.add(message);
+        if(inbox1.size()>inboxCapacity) {
+            trash.add(inbox1.get(0));
+            //System.out.println((inbox2.get(0)));
+            inbox1.remove(0);
+            inbox2.remove(0);
+        }
 
         // If the inbox is full, move the oldest mail in the inbox to trash and add the new mail to inbox.
         // It is guaranteed that:
@@ -53,7 +54,7 @@ public class Gmail extends Email {
 
     public String findLatestMessage(){
         if(inbox2.size()!=0)
-            return inbox2.get(0);
+            return inbox2.get(inbox2.size()-1);
 
         return null;
         // If the inbox is empty, return null
@@ -63,7 +64,7 @@ public class Gmail extends Email {
 
     public String findOldestMessage(){
         if(inbox2.size()!=0)
-            return inbox2.get(inbox2.size()-1);
+            return inbox2.get(0);
 
         return null;
         // If the inbox is empty, return null

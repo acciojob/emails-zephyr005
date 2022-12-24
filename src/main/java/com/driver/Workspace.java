@@ -36,7 +36,7 @@ public class Workspace extends Gmail{
             }
         });
 
-        int x=0;
+        int x=1;
         int ans=0;
         Meeting m=calendar.get(0);
         for(int i=1;i<calendar.size();i++){
@@ -44,8 +44,11 @@ public class Workspace extends Gmail{
                 x++;
                 m=calendar.get(i);
             }
-            ans=Math.max(ans,x);
-            m=calendar.get(i);
+            else{
+                ans=Math.max(ans,x);
+                m=calendar.get(i);
+                x=1;
+            }
         }
 
         return ans;
